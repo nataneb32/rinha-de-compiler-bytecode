@@ -1,0 +1,11 @@
+let x = true;
+
+let f = fn(x) => {
+	if(x) {
+		false
+	} else {
+		true
+	}
+};
+
+print(x)

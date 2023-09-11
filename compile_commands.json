@@ -1,0 +1,72 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I/usr/include/lua5.3",
+      "-g",
+      "-o",
+      "rinha",
+      "main.c"
+    ],
+    "directory": "/home/nataneb/random/rinha-de-compilador-luajit",
+    "file": "/home/nataneb/random/rinha-de-compilador-luajit/main.c",
+    "output": "/home/nataneb/random/rinha-de-compilador-luajit/rinha"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I/usr/include/lua5.3",
+      "-g",
+      "-o",
+      "rinha",
+      "json.c"
+    ],
+    "directory": "/home/nataneb/random/rinha-de-compilador-luajit",
+    "file": "/home/nataneb/random/rinha-de-compilador-luajit/json.c",
+    "output": "/home/nataneb/random/rinha-de-compilador-luajit/rinha"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I/usr/include/lua5.3",
+      "-g",
+      "-o",
+      "rinha",
+      "parser.c"
+    ],
+    "directory": "/home/nataneb/random/rinha-de-compilador-luajit",
+    "file": "/home/nataneb/random/rinha-de-compilador-luajit/parser.c",
+    "output": "/home/nataneb/random/rinha-de-compilador-luajit/rinha"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I/usr/include/lua5.3",
+      "-g",
+      "-o",
+      "rinha",
+      "ast.c"
+    ],
+    "directory": "/home/nataneb/random/rinha-de-compilador-luajit",
+    "file": "/home/nataneb/random/rinha-de-compilador-luajit/ast.c",
+    "output": "/home/nataneb/random/rinha-de-compilador-luajit/rinha"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-I/usr/include/lua5.3",
+      "-g",
+      "-o",
+      "rinha",
+      "arena.c"
+    ],
+    "directory": "/home/nataneb/random/rinha-de-compilador-luajit",
+    "file": "/home/nataneb/random/rinha-de-compilador-luajit/arena.c",
+    "output": "/home/nataneb/random/rinha-de-compilador-luajit/rinha"
+  }
+]
