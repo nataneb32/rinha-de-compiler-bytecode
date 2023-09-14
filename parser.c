@@ -247,7 +247,7 @@ AstNode *parse_str(Ast *ast, json_value *str) {
 
   assert(value.type == json_string);
 
-  node->str.value = value.u.string.ptr;
+  node->str.value = ArenaCpyStr(ast->arena, value.u.string.ptr);
   node->str.location = parse_location(ast, &location);
 
   return node;
@@ -308,7 +308,7 @@ AstNode *parse_binary(Ast *ast, json_value *binary) {
 
   AstNode *node = AstBuildNode(ast, N_BINARY);
 
-  if (op.type == json_object) {
+  if (op.type == json_string) {
     node->binary.op = parse_binaryop(ast, &op);
   } else {
     perror("invalid op");
@@ -379,7 +379,7 @@ AstNode *parse_call(Ast *ast, json_value *call) {
     perror("invalid callee");
   }
 
-  if (arguments.type == json_object) {
+  if (arguments.type == json_array) {
     node->call.arguments = parse_arguments(ast, &arguments);
   } else {
     perror("invalid arguments");
@@ -501,7 +501,7 @@ AstNode *parse_var(Ast *ast, json_value *var) {
   json_entry_by_name(var, &text, "text");
   json_entry_by_name(var, &location, "location");
 
-  AstNode *node = AstBuildNode(ast, N_TUPLE);
+  AstNode *node = AstBuildNode(ast, N_VAR);
 
   node->var.location = parse_location(ast, &location);
   node->var.text = ArenaCpyStr(ast->arena, text.u.string.ptr);

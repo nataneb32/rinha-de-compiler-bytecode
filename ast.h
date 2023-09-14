@@ -26,7 +26,8 @@ typedef struct AstNode {
 		N_FIRST,
 		N_SECOND,
 		N_PRINT,
-		N_TUPLE
+		N_TUPLE,
+		N_VAR,
 	} kind;
 
 	struct AstNode *next;
