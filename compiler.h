@@ -3,12 +3,17 @@
 
 #include "arena.h"
 #include "ast.h"
-#include "bytecode.h"
+#include "vm.h"
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef struct {
 	const char* name;
-	uint8_t offset;
+	int8_t offset;
+	bool isCaptured;
+	bool isParam;
+	bool isUpvalue;
+	uint8_t depth;
 } Local;
 
 typedef struct Scope {
@@ -18,6 +23,8 @@ typedef struct Scope {
 	BytecodeChunk* chunk;
 	struct Scope* parent;
 	uint64_t stackSize;
+	uint8_t upvalues[255];
+	uint8_t upvaluesCount;
 } Scope;
 
 typedef struct {
@@ -27,7 +34,7 @@ typedef struct {
 
 Compiler *CompilerNew(VM *vm);
 
-void CompilerEmitFile(Compiler *compiler, AstNode* node);
-void CompilerEmitTerm(Compiler* compiler, Scope *scope, AstNode* node);
+void CompilerEmitFile(Compiler *compiler, AstNode* node,  Function *toplevel);
+int8_t CompilerEmitTerm(Compiler* compiler, Scope *scope, AstNode* node);
 
 #endif

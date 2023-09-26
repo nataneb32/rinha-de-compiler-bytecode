@@ -9,7 +9,7 @@
 Arena* ArenaNew(int capacity) {
 	Arena* arena = malloc(sizeof(Arena));
 	arena->cap = ARENA_SIZE;
-	arena->data = malloc(capacity);
+	arena->data = malloc(arena->cap);
 	arena->next = NULL;
 	arena->size = 0;
 	return arena;

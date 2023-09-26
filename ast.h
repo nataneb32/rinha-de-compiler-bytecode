@@ -74,6 +74,9 @@ typedef struct AstNode {
 			struct AstNode* rhs;
 			enum AstBinaryOp {
 				OP_ADD,
+				OP_SUB,
+				OP_MUL,
+				OP_LT,
 			} op;
 			AstNodeLoc location;
 		} binary;

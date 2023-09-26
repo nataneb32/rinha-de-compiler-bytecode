@@ -292,6 +292,7 @@ AstNode *parse_int(Ast *ast, json_value *_int) {
   if (location.type == json_object) {
     node->_int.location = parse_location(ast, &location);
   }
+
   return node;
 }
 
@@ -335,6 +336,7 @@ AstNode *parse_binary(Ast *ast, json_value *binary) {
 AstNode *parse_parameters(Ast *ast, json_value *parameters) {
   assert(parameters->type == json_array);
   AstNode *previous = NULL;
+  AstNode *first = NULL;
   for (int i = 0; i < parameters->u.array.length; i++) {
     json_value *parameter = parameters->u.array.values[i];
     json_value text;
@@ -348,8 +350,11 @@ AstNode *parse_parameters(Ast *ast, json_value *parameters) {
     assert(location.type == json_object);
 
     AstNode *node = AstBuildNode(ast, N_PARAMETER);
+	if(!first) {
+		first = node;
+	}
     if (previous) {
-      previous->next = node;
+      previous->parameter.next = node;
     }
 
     node->parameter.text = ArenaCpyStr(ast->arena, text.u.string.ptr);
@@ -357,7 +362,7 @@ AstNode *parse_parameters(Ast *ast, json_value *parameters) {
 
     previous = node;
   }
-  return previous;
+  return first;
 }
 
 AstNode *parse_call(Ast *ast, json_value *call) {
@@ -394,18 +399,22 @@ AstNode *parse_call(Ast *ast, json_value *call) {
 AstNode *parse_arguments(Ast *ast, json_value *arguments) {
   assert(arguments->type == json_array);
   AstNode *previous = NULL;
+  AstNode *root = NULL;
   for (int i = 0; i < arguments->u.array.length; i++) {
     json_value *argument = arguments->u.array.values[i];
 
     AstNode *node = AstBuildNode(ast, N_ARGUMENT);
+	if(!root) {
+		root = node;
+	}
     if (previous) {
-      previous->next = node;
+      previous->argument.next = node;
     }
 
     node->argument.value = parse_term(ast, argument);
     previous = node;
   }
-  return previous;
+  return root;
 }
 
 AstNode *parse_function(Ast *ast, json_value *function) {
@@ -513,6 +522,15 @@ enum AstBinaryOp parse_binaryop(Ast *ast, json_value *op) {
 
   if (strcmp("Add", op->u.string.ptr) == 0) {
     return OP_ADD;
+  }
+  if (strcmp("Sub", op->u.string.ptr) == 0) {
+    return OP_SUB;
+  }
+  if (strcmp("Mul", op->u.string.ptr) == 0) {
+    return OP_MUL;
+  }
+  if (strcmp("Lt", op->u.string.ptr) == 0) {
+    return OP_LT;
   }
 
   return 0;
